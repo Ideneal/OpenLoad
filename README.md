@@ -5,7 +5,7 @@ It's just a php client of the [OpenLoad.co](https://openload.co/) service.
 ## Install
 
 ```
-composer require ideneal\openload:~1.0
+composer require ideneal/openload:~1.0
 ```
 
 ## Usage
