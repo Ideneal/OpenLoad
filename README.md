@@ -1,5 +1,7 @@
 # OpenLoad
 
+[![Build Status]https://travis-ci.org/Ideneal/OpenLoad.svg?branch=master)](https://travis-ci.org/Ideneal/OpenLoad)
+
 It's just a php client of the [OpenLoad.co](https://openload.co/) service.
 
 ## Install
