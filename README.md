@@ -23,8 +23,8 @@ use Ideneal\OpenLoad\OpenLoadClient;
 
 $openload = new OpenLoadClient('apiLogin', 'apiKey');
 
-$acccountInfo = $openload->getAccountInfo();
-echo $acccountInfo->getEmail(); //account@email.com
+$accountInfo = $openload->getAccountInfo();
+echo $accountInfo->getEmail(); //account@email.com
 ```
 
 to upload a file
