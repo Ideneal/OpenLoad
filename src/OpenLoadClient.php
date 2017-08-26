@@ -367,6 +367,82 @@ class OpenLoadClient
     }
 
     /**
+     * Searches the folders within a folder with a specific name
+     *
+     * @param string        $folderName  The folder name
+     * @param string|Folder $folder      The folder id
+     * @param bool          $recursively Whether search a folder recursively or not
+     *
+     * @return Folder[]
+     */
+    public function searchFolders($folderName, $folder = null, $recursively = false)
+    {
+        $folders = $this->getFolders($folder);
+        $result  = [];
+
+        while (!empty($folders)) {
+            $folder = array_pop($folders);
+
+            if ($folder->getName() == $folderName) {
+                $result[] = $folder;
+            }
+
+            if ($recursively) {
+                $subFolders = $this->getFolders($folder);
+                $folders    = array_merge($folders, $subFolders);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Searches the files within a folder with a specific name
+     *
+     * @param string          $fileName    The file name
+     * @param string|Folder   $folder      The folder id
+     * @param bool            $recursively Whether search a file recursively or not
+     *
+     * @return File[]
+     */
+    public function searchFiles($fileName, $folder = null, $recursively = false)
+    {
+        $contents = $recursively ? $this->getContents($folder) : $this->getFiles($folder);
+        $result   = [];
+
+        if ($recursively) {
+            $subFolders = [];
+
+            while (!empty($contents)) {
+                $content = array_pop($contents);
+
+                if ($content instanceof Folder) {
+                    $subFolders[] = $content;
+                } elseif ($content->getName() == $fileName) {
+                    $result[] = $content;
+                }
+
+                // Once I've checked each files I get others from subfolders
+                if (!empty($contents)) {
+                    foreach ($subFolders as $subFolder) {
+                        $subContents = $this->getContents($subFolder);
+                        $contents    = array_merge($contents, $subContents);
+                    }
+                    $subFolders = [];
+                }
+            }
+        } else {
+            foreach ($contents as $content) {
+                if ($content->getName() == $fileName) {
+                    $result[] = $content;
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Converts a file
      *
      * @param string|File $file The file id
