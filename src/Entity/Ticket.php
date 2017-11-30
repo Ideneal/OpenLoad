@@ -44,6 +44,16 @@ class Ticket
     private $fileId;
 
     /**
+     * Returns the file id related to the ticket
+     *
+     * @return string
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
+    }
+
+    /**
      * Returns the ticket code
      *
      * @return string
@@ -81,16 +91,6 @@ class Ticket
     public function getExpirationDate()
     {
         return $this->expirationDate;
-    }
-
-    /**
-     * Returns the file id related to the ticket
-     *
-     * @return string
-     */
-    public function getFileId()
-    {
-        return $this->fileId;
     }
 
     /**
