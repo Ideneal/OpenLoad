@@ -33,5 +33,13 @@ class ConversionStatusBuilderTest extends \PHPUnit_Framework_TestCase
         $data   = json_decode($this->fixture, true);
         $status = ConversionStatusBuilder::buildConversionStatus($data);
         $this->assertInstanceOf('Ideneal\OpenLoad\Entity\ConversionStatus', $status);
+        $this->assertEquals('3565411', $status->getId());
+        $this->assertEquals('Geysir.AVI', $status->getName());
+        $this->assertEquals('pending', $status->getStatus());
+        $this->assertInstanceOf('\DateTime', $status->getLastUpdateDate());
+        $this->assertEquals(0.32, $status->getProgress());
+        $this->assertEquals('0', $status->getRetries());
+        $this->assertEquals('https://openload.co/f/f02JFG293J8/Geysir.AVI', $status->getUrl());
+        $this->assertEquals('f02JFG293J8', $status->getFileId());
     }
 }

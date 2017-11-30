@@ -53,6 +53,7 @@ class ContentBuilder extends AbstractBuilder
         $file
             ->setId($data['linkextid'])
             ->setName($data['name'])
+            ->setSha1($data['sha1'])
             ->setFolderId($data['folderid'])
             ->setUploadDate($uploadDate)
             ->setStatus($data['status'])

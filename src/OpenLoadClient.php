@@ -513,6 +513,10 @@ class OpenLoadClient
      */
     public function uploadFile($fileName, $folder = null, $httpOnly = false)
     {
+        if (!file_exists($fileName)) {
+            throw new \InvalidArgumentException('The'.$fileName.'does not exist.');
+        }
+
         $file = fopen($fileName, 'r');
         $sha1 = sha1_file($fileName);
 

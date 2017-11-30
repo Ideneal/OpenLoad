@@ -12,6 +12,7 @@
 namespace Ideneal\OpenLoad\Test\Builder;
 
 use Ideneal\OpenLoad\Builder\RemoteUploadBuilder;
+use Ideneal\OpenLoad\Entity\RemoteUpload;
 
 /**
  * RemoteUploadBuilderTest
@@ -38,6 +39,7 @@ class RemoteUploadBuilderTest extends \PHPUnit_Framework_TestCase
         $data   = json_decode($this->fixtureUpload, true);
         $upload = RemoteUploadBuilder::buildRemoteUpload($data);
         $this->assertInstanceOf('Ideneal\OpenLoad\Entity\RemoteUpload', $upload);
+        $this->assertEquals('4248', $upload->getFolderId());
     }
 
     /**
@@ -48,5 +50,24 @@ class RemoteUploadBuilderTest extends \PHPUnit_Framework_TestCase
         $data   = json_decode($this->fixtureStatus, true);
         $status = RemoteUploadBuilder::buildRemoteUploadStatus($data);
         $this->assertInstanceOf('Ideneal\OpenLoad\Entity\RemoteUploadStatus', $status);
+        $this->assertInstanceOf('Ideneal\OpenLoad\Entity\RemoteUpload', $status->getRemoteUpload());
+        $this->assertEquals('http://proof.ovh.net/files/100Mio.dat', $status->getRemoteUrl());
+        $this->assertEquals('new', $status->getStatus());
+        $this->assertNull($status->getBytesLoaded());
+        $this->assertNull($status->getBytesTotal());
+        $this->assertInstanceOf('\DateTime', $status->getAddedDate());
+        $this->assertInstanceOf('\DateTime', $status->getLastUpdateDate());
+        $this->assertFalse($status->getFileId());
+        $this->assertFalse($status->getUrl());
+    }
+
+    /**
+     * Tests the RemoteUpload should return the upload id
+     */
+    public function testRemoteUploadReturnUploadId()
+    {
+        $upload = new RemoteUpload();
+        $upload->setId('4248');
+        $this->assertEquals('4248', $upload->getId());
     }
 }
