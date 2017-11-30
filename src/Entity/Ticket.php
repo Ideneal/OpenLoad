@@ -39,30 +39,9 @@ class Ticket
     private $expirationDate;
 
     /**
-     * @var array string The file id related to the ticket
+     * @var string The file id related to the ticket
      */
     private $fileId;
-
-    /**
-     * Returns the file id related to the ticket
-     *
-     * @return string
-     */
-    public function getFileId()
-    {
-        return $this->fileId;
-    }
-
-    /**
-     * Returns the file id related to the ticket
-     *
-     * @return string
-     */
-    public function setFileId($fileId)
-    {
-        $this->fileId = $fileId;
-        return $this;
-    }
 
     /**
      * Returns the ticket code
@@ -102,6 +81,16 @@ class Ticket
     public function getExpirationDate()
     {
         return $this->expirationDate;
+    }
+
+    /**
+     * Returns the file id related to the ticket
+     *
+     * @return string
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
     }
 
     /**
@@ -153,6 +142,19 @@ class Ticket
     public function setExpirationDate(\DateTime $expirationDate)
     {
         $this->expirationDate = $expirationDate;
+        return $this;
+    }
+
+    /**
+     * Sets the file id related to the ticket
+     *
+     * @param string $fileId The file id
+     *
+     * @return string
+     */
+    public function setFileId($fileId)
+    {
+        $this->fileId = $fileId;
         return $this;
     }
 
