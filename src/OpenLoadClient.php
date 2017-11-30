@@ -121,16 +121,13 @@ class OpenLoadClient
      *
      * @return DownloadLink
      */
-    public function getDownloadLink(Ticket $ticket, $captchaResponse = null)
+    public function getDownloadLink(Ticket $ticket, $captchaResponse)
     {
         $params = [
-            'file' => $ticket->getFileId(),
-            'ticket' => $ticket->getCode()
+            'file'             => $ticket->getFileId(),
+            'ticket'           => $ticket->getCode(),
+            'captcha_response' => $captchaResponse,
         ];
-
-        if ($captchaResponse) {
-            $params['captcha_response'] = $captchaResponse;
-        }
 
         $response = $this->processRequest('file/dl', $params);
         $result   = $this->processResponse($response);

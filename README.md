@@ -10,11 +10,11 @@ It's just a php client of the [OpenLoad.co](https://openload.co/) service.
 ## Install
 
 ```
-composer require ideneal/openload:~1.0
+composer require ideneal/openload:~1.1
 ```
 
 ## Usage
-All api features are implemented.
+All api features are been implemented.
 
 ### Get account info
 
@@ -31,6 +31,30 @@ $openload = new OpenLoadClient('apiLogin', 'apiKey');
 
 $accountInfo = $openload->getAccountInfo();
 echo $accountInfo->getEmail(); //account@email.com
+```
+
+### Get a ticket to download a file
+
+In order to retrieve a ticket to download a file you have to use
+the `getTicket` method and pass it the remote file you want to get the ticket.
+The remote file has to be a FileInfo object or the file id.
+
+```php
+<?php
+
+include_once './vendor/autoload.php';
+
+use Ideneal\OpenLoad\OpenLoadClient;
+
+$openload = new OpenLoadClient('apiLogin', 'apiKey');
+
+$fileInfo = $openload->getFileInfo('72fA-_Lq8Ak');
+$ticket   = $openload->getTicket($fileInfo);
+
+// ...
+// After read the captcha response from $ticket->getCaptcha()->getUrl()
+
+$downloadLink = $openload->getDownloadLink($ticket, $captchaResponse);
 ```
 
 ### Upload a file
