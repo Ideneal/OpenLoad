@@ -13,13 +13,15 @@ namespace Ideneal\OpenLoad\Test\Builder;
 
 use Ideneal\OpenLoad\Builder\ContentBuilder;
 use Ideneal\OpenLoad\Entity\File;
+use Ideneal\OpenLoad\Entity\Folder;
+use PHPUnit\Framework\TestCase;
 
 /**
  * ContentBuilderTest
  *
  * @author Daniele Pedone aka Ideneal <ideneal.ztl@gmail.com>
  */
-class ContentBuilderTest extends \PHPUnit_Framework_TestCase
+class ContentBuilderTest extends TestCase
 {
     /**
      * @var string The folder result fixture
@@ -38,7 +40,7 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $data   = json_decode($this->folderFixture, true);
         $folder = ContentBuilder::buildFolder($data);
-        $this->assertInstanceOf('Ideneal\OpenLoad\Entity\Folder', $folder);
+        $this->assertInstanceOf(Folder::class, $folder);
     }
 
     /**
@@ -48,10 +50,10 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $data = json_decode($this->fileFixture, true);
         $file = ContentBuilder::buildFile($data);
-        $this->assertInstanceOf('Ideneal\OpenLoad\Entity\File', $file);
+        $this->assertInstanceOf(File::class, $file);
         $this->assertEquals('c6531f5ce9669d6547023d92aea4805b7c45d133', $file->getSha1());
         $this->assertEquals('4258', $file->getFolderId());
-        $this->assertInstanceOf('\DateTime', $file->getUploadDate());
+        $this->assertInstanceOf(\DateTime::class, $file->getUploadDate());
         $this->assertEquals('active', $file->getStatus());
         $this->assertEquals('5114011', $file->getSize());
         $this->assertEquals('video/mp4', $file->getContentType());

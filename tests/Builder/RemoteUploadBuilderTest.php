@@ -13,13 +13,15 @@ namespace Ideneal\OpenLoad\Test\Builder;
 
 use Ideneal\OpenLoad\Builder\RemoteUploadBuilder;
 use Ideneal\OpenLoad\Entity\RemoteUpload;
+use Ideneal\OpenLoad\Entity\RemoteUploadStatus;
+use PHPUnit\Framework\TestCase;
 
 /**
  * RemoteUploadBuilderTest
  *
  * @author Daniele Pedone aka Ideneal <ideneal.ztl@gmail.com>
  */
-class RemoteUploadBuilderTest extends \PHPUnit_Framework_TestCase
+class RemoteUploadBuilderTest extends TestCase
 {
     /**
      * @var string The remote upload result fixture
@@ -38,7 +40,7 @@ class RemoteUploadBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $data   = json_decode($this->fixtureUpload, true);
         $upload = RemoteUploadBuilder::buildRemoteUpload($data);
-        $this->assertInstanceOf('Ideneal\OpenLoad\Entity\RemoteUpload', $upload);
+        $this->assertInstanceOf(RemoteUpload::class, $upload);
         $this->assertEquals('4248', $upload->getFolderId());
     }
 
@@ -49,14 +51,14 @@ class RemoteUploadBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $data   = json_decode($this->fixtureStatus, true);
         $status = RemoteUploadBuilder::buildRemoteUploadStatus($data);
-        $this->assertInstanceOf('Ideneal\OpenLoad\Entity\RemoteUploadStatus', $status);
-        $this->assertInstanceOf('Ideneal\OpenLoad\Entity\RemoteUpload', $status->getRemoteUpload());
+        $this->assertInstanceOf(RemoteUploadStatus::class, $status);
+        $this->assertInstanceOf(RemoteUpload::class, $status->getRemoteUpload());
         $this->assertEquals('http://proof.ovh.net/files/100Mio.dat', $status->getRemoteUrl());
         $this->assertEquals('new', $status->getStatus());
         $this->assertNull($status->getBytesLoaded());
         $this->assertNull($status->getBytesTotal());
-        $this->assertInstanceOf('\DateTime', $status->getAddedDate());
-        $this->assertInstanceOf('\DateTime', $status->getLastUpdateDate());
+        $this->assertInstanceOf(\DateTime::class, $status->getAddedDate());
+        $this->assertInstanceOf(\DateTime::class, $status->getLastUpdateDate());
         $this->assertFalse($status->getFileId());
         $this->assertFalse($status->getUrl());
     }

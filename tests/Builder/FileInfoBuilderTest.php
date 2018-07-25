@@ -13,13 +13,14 @@ namespace Ideneal\OpenLoad\Test\Builder;
 
 use Ideneal\OpenLoad\Builder\FileInfoBuilder;
 use Ideneal\OpenLoad\Entity\FileInfo;
+use PHPUnit\Framework\TestCase;
 
 /**
  * FileInfoBuilderTest
  *
  * @author Daniele Pedone aka Ideneal <ideneal.ztl@gmail.com>
  */
-class FileInfoBuilderTest extends \PHPUnit_Framework_TestCase
+class FileInfoBuilderTest extends TestCase
 {
     /**
      * @var string The file info result fixture
@@ -33,7 +34,7 @@ class FileInfoBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $data     = json_decode($this->fixture, true);
         $fileInfo = FileInfoBuilder::buildFileInfo($data);
-        $this->assertInstanceOf('Ideneal\OpenLoad\Entity\FileInfo', $fileInfo);
+        $this->assertInstanceOf(FileInfo::class, $fileInfo);
         $this->assertEquals('72fA-_Lq8Ak3', $fileInfo->getId());
         $this->assertEquals('200', $fileInfo->getStatus());
         $this->assertEquals('The quick brown fox.txt', $fileInfo->getName());

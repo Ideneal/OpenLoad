@@ -12,13 +12,15 @@
 namespace Ideneal\OpenLoad\Test\Builder;
 
 use Ideneal\OpenLoad\Builder\AccountInfoBuilder;
+use Ideneal\OpenLoad\Entity\AccountInfo;
+use PHPUnit\Framework\TestCase;
 
 /**
  * AccountInfoBuilderTest
  *
  * @author Daniele Pedone aka Ideneal <ideneal.ztl@gmail.com>
  */
-class AccountInfoBuilderTest extends \PHPUnit_Framework_TestCase
+class AccountInfoBuilderTest extends TestCase
 {
     /**
      * @var string The account info result fixture
@@ -32,14 +34,14 @@ class AccountInfoBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $data    = json_decode($this->fixture, true);
         $account = AccountInfoBuilder::buildAccountInfo($data);
-        $this->assertInstanceOf('Ideneal\OpenLoad\Entity\AccountInfo', $account);
+        $this->assertInstanceOf(AccountInfo::class, $account);
         $this->assertEquals('admin@openload.co', $account->getEmail());
         $this->assertEquals('extuserid', $account->getId());
-        $this->assertInstanceOf('\DateTime', $account->getSignupDate());
+        $this->assertInstanceOf(\DateTime::class, $account->getSignupDate());
         $this->assertEquals(-1, $account->getStorageLeft());
         $this->assertEquals('32922117680', $account->getStorageUsed());
         $this->assertEquals(-1, $account->getTrafficLeft());
         $this->assertEquals(0, $account->getTrafficUsed24h());
         $this->assertEquals(0, $account->getBalance());
-   }
+    }
 }
