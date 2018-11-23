@@ -535,6 +535,25 @@ class OpenLoadClient
     }
 
     /**
+     * Rename a file
+     *
+     * @param string|File   $file The file id
+     * @param string        $fileName The new file name
+     *
+     * @return boolean
+     */
+    public function renameFile($file, $fileName)
+    {
+        $params = $this->getAuthParams();
+        $params['file'] = (string) $file;
+        $params['name'] = (string) $fileName;
+
+        $response = $this->processRequest('file/rename', $params);
+
+        return $this->processResponse($response);
+    }
+
+    /**
      * Processes the OpenLoad API request
      *
      * @param string $uri        The request uri
